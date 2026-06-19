@@ -1,0 +1,30 @@
+# Secrets / local config — never commit real connection strings
+**/appsettings.local.json
+**/secrets.json
+*.secrets
+
+# .NET build output
+bin/
+obj/
+out/
+*.user
+*.suo
+.vs/
+
+# UWP / VS
+*.appx
+*.appxbundle
+*.appxupload
+AppPackages/
+BundleArtifacts/
+*.cer
+*.pfx
+
+# Rider / VS Code
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# OS
+Thumbs.db
+.DS_Store

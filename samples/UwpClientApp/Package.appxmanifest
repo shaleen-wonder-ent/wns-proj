@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  IgnorableNamespaces="uap mp">
+
+  <!--
+    IMPORTANT:
+    The Name / Publisher below are PLACEHOLDERS. Run
+    "Publish → Associate App with the Store" in Visual Studio to replace them
+    with the Package/Identity/Name and Package/Identity/Publisher values from
+    your Partner Center app registration. WNS will reject pushes if these don't
+    match the app you configured on the hub.
+  -->
+  <Identity
+    Name="REPLACE-WITH-Package.Identity.Name"
+    Publisher="CN=REPLACE-WITH-Package.Identity.Publisher"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="00000000-0000-0000-0000-000000000000" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>WNS Client Sample</DisplayName>
+    <PublisherDisplayName>REPLACE-WITH-PublisherDisplayName</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.22621.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="UwpClientApp.App">
+      <uap:VisualElements
+        DisplayName="WNS Client Sample"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="Sample UWP app that receives WNS push notifications via Azure Notification Hubs."
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
