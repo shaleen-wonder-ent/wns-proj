@@ -2,7 +2,7 @@
 <!--
   UWP project file.
 
-  NOTE: Building a UWP app requires Visual Studio 2022 with the
+  NOTE: Building a UWP app requires Visual Studio 2022 or later with the
   "Universal Windows Platform development" workload. It uses the older
   MSBuild-style project format (not the SDK-style used by BackendSender).
 

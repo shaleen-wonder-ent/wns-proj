@@ -55,14 +55,14 @@ and Windows.
 
 ## Your Azure context
 
-These were provided for this project. **Do not commit real secrets** — see
+Fill these in for your own environment. **Do not commit real secrets or IDs** — see
 [`.gitignore`](.gitignore) and use the placeholder config files.
 
 | Setting | Value |
 | --- | --- |
-| Tenant ID | `d832042c-0b39-4a9a-91f8-ef2b60153a96` |
-| Subscription ID | `20f97081-6301-493e-a180-d9ee966c3c01` |
-| Owner / Admin | `shaleenthapa@shaleenthapahotmail.onmicrosoft.com` |
+| Tenant ID | `<your-tenant-id>` |
+| Subscription ID | `<your-subscription-id>` |
+| Owner / Admin | `<your-admin-account>` |
 
 > ⚠️ **Note on "mobile application":** WNS targets **Windows** apps (desktop/UWP). If your
 > mobile app is **iOS** or **Android**, Notification Hubs still works the same way — you'd

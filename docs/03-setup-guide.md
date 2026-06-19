@@ -14,10 +14,10 @@ There are **four** stages:
 
 ## Prerequisites
 
-- An **Azure subscription** (yours: `20f97081-6301-493e-a180-d9ee966c3c01`).
+- An **Azure subscription**.
 - **Windows 10/11** machine.
-- **Visual Studio 2022** with the **Universal Windows Platform development** workload
-  installed (required to build the UWP client).
+- **Visual Studio 2022 or later** with the **Universal Windows Platform development**
+  workload installed (required to build the UWP client).
 - A **Microsoft account** with access to [Partner Center](https://partner.microsoft.com/dashboard).
 - On your machine: **Settings → System → Notifications** → ensure "Get notifications from
   apps and other senders" is **On**.
@@ -78,8 +78,7 @@ You now have the two credentials the hub needs: **Package SID** and **Client sec
 
 ### Option A — Azure Portal (recommended for first time)
 
-1. Sign in to the [Azure portal](https://portal.azure.com) (subscription
-   `20f97081-6301-493e-a180-d9ee966c3c01`).
+1. Sign in to the [Azure portal](https://portal.azure.com) and select your subscription.
 2. Search for **Notification Hubs** → **Create**.
 3. On the **Basics** tab:
    - **Subscription**: your subscription.
@@ -117,8 +116,8 @@ In the hub, open **Manage → Access Policies**. Copy:
 
 ```powershell
 # Sign in to the right tenant + subscription
-az login --tenant d832042c-0b39-4a9a-91f8-ef2b60153a96
-az account set --subscription 20f97081-6301-493e-a180-d9ee966c3c01
+az login --tenant <your-tenant-id>
+az account set --subscription <your-subscription-id>
 
 # Variables
 $rg   = "rg-wns-demo"
@@ -157,7 +156,7 @@ az notification-hub authorization-rule list-keys `
 The full source is in [`samples/UwpClientApp`](../samples/UwpClientApp). See its
 [README](../samples/UwpClientApp/README.md) for details. Summary:
 
-1. Open the project in **Visual Studio 2022**.
+1. Open the project in **Visual Studio 2022 or later**.
 2. Right‑click the project → **Publish → Associate App with the Store**, sign in, and
    pick the app you reserved in Stage 1. This injects the correct identity into
    `Package.appxmanifest`.

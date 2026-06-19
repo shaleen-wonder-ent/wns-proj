@@ -20,7 +20,7 @@ On launch, `InitNotificationsAsync()`:
 
 ## Before you run
 
-1. Open this project in **Visual Studio 2022** with the **Universal Windows Platform
+1. Open this project in **Visual Studio 2022 or later** with the **Universal Windows Platform
    development** workload installed.
 2. **Associate the app with the Store**: right‑click the project → **Publish → Associate
    App with the Store** → sign in → choose the app you reserved in Partner Center
