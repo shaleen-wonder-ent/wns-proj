@@ -62,14 +62,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.14</Version>
-    </PackageReference>
-    <PackageReference Include="WindowsAzure.Messaging.Managed">
-      <Version>0.1.7.9</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\Square150x150Logo.png" />
     <Content Include="Assets\Square44x44Logo.png" />
