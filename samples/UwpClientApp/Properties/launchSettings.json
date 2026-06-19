@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "UwpClientApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "UwpClientApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
