@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
@@ -23,46 +24,54 @@ namespace UwpClientApp
     /// </summary>
     internal static class NotificationService
     {
-        // ?????????????????????????????????????????????????????????????????????????
-        //  TODO: set these two values for YOUR notification hub.
-        //
-        //  HubName                   ? the notification hub name (e.g. "wns-demo-hub").
-        //  HubListenConnectionString ? the DefaultListenSharedAccessSignature
-        //                              connection string from the hub's Access Policies.
-        //
-        //  Use the LISTEN (not Full) connection string in the client app.
-        // ?????????????????????????????????????????????????????????????????????????
-        private const string HubName = "wns-demo-hub";
-        private const string HubListenConnectionString =
-            "Endpoint=sb://wns-demo-ns-st.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=pT2hiGcE6+1UUhJ8YbtFEooy4HCoTb8dV/myCe5g9j0=";
-
         private const string ApiVersion = "2015-01";
 
         /// <summary>
         /// Requests a WNS channel for this device and registers it with the Azure
         /// Notification Hub so the device can receive push notifications.
         /// </summary>
-        /// <param name="windowHandle">HWND of the active window, used to host any result dialog.</param>
-        public static async Task InitNotificationsAsync(IntPtr windowHandle)
+        /// <param name="hostPage">The page used to host any result dialog (provides XamlRoot).</param>
+        /// <param name="onStatus">Optional callback invoked with human-readable status updates.</param>
+        public static async Task InitNotificationsAsync(Page hostPage, Action<string>? onStatus = null)
         {
+            void Report(string message)
+            {
+                Debug.WriteLine("[NotificationService] " + message);
+                onStatus?.Invoke(message);
+            }
+
             try
             {
+                NotificationHubOptions options = NotificationHubOptions.Load();
+                if (!options.IsConfigured)
+                {
+                    Report("Not configured. Set HubName and HubListenConnectionString " +
+                           "(see NotificationService configuration).");
+                    return;
+                }
+
+                Report("Requesting WNS channel...");
+
                 // 1. Ask WNS for a push channel (the per-device "mailbox" URI).
+                //    NOTE: this requires the app to run with package identity (packaged/MSIX).
                 PushNotificationChannel channel =
                     await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
 
-                // 2. Register that channel URI with the notification hub via the REST API.
-                string registrationId = await RegisterNativeAsync(channel.Uri);
+                Report("Registering channel with the notification hub...");
 
-                // 3. Show the registration id so you know it worked.
-                if (!string.IsNullOrEmpty(registrationId))
-                {
-                    await ShowMessageAsync(windowHandle, "Registration successful: " + registrationId);
-                }
+                // 2. Register that channel URI with the notification hub via the REST API.
+                string registrationId = await RegisterNativeAsync(options, channel.Uri);
+
+                // 3. Report the registration id so you know it worked.
+                string success = "Registration successful: " + registrationId;
+                Report(success);
+                await ShowMessageAsync(hostPage, success);
             }
             catch (Exception ex)
             {
-                await ShowMessageAsync(windowHandle, "Registration failed: " + ex.Message);
+                string failure = "Registration failed: " + ex.Message;
+                Report(failure);
+                await ShowMessageAsync(hostPage, failure);
             }
         }
 
@@ -70,9 +79,9 @@ namespace UwpClientApp
         /// Creates (or replaces) a native WNS registration for the supplied channel URI.
         /// Mirrors the behavior of the old <c>NotificationHub.RegisterNativeAsync</c> helper.
         /// </summary>
-        private static async Task<string> RegisterNativeAsync(string channelUri)
+        private static async Task<string> RegisterNativeAsync(NotificationHubOptions options, string channelUri)
         {
-            (string endpoint, string keyName, string key) = ParseConnectionString(HubListenConnectionString);
+            (string endpoint, string keyName, string key) = ParseConnectionString(options.HubListenConnectionString);
 
             // Notification Hubs uses an https endpoint; the connection string carries an sb:// scheme.
             string baseUri = endpoint
@@ -83,7 +92,7 @@ namespace UwpClientApp
 
             // Create a new registration id from the hub.
             string createRegistrationUri =
-                $"{baseUri}/{HubName}/registrationids/?api-version={ApiVersion}";
+                $"{baseUri}/{options.HubName}/registrationids/?api-version={ApiVersion}";
             string sasForCreate = CreateSasToken(createRegistrationUri, keyName, key);
 
             using var createRequest = new HttpRequestMessage(HttpMethod.Post, createRegistrationUri);
@@ -95,7 +104,7 @@ namespace UwpClientApp
 
             // The new registration id is returned in the Location header:
             // .../registrations/<registrationId>?api-version=...
-            string registrationId = ExtractRegistrationId(createResponse.Headers.Location);
+            string? registrationId = ExtractRegistrationId(createResponse.Headers.Location);
             if (string.IsNullOrEmpty(registrationId))
             {
                 throw new InvalidOperationException("Notification hub did not return a registration id.");
@@ -103,7 +112,7 @@ namespace UwpClientApp
 
             // Upsert the native (WNS) registration body for that id.
             string upsertUri =
-                $"{baseUri}/{HubName}/registrations/{registrationId}?api-version={ApiVersion}";
+                $"{baseUri}/{options.HubName}/registrations/{registrationId}?api-version={ApiVersion}";
             string sasForUpsert = CreateSasToken(upsertUri, keyName, key);
 
             string body =
@@ -127,7 +136,7 @@ namespace UwpClientApp
             return registrationId;
         }
 
-        private static string ExtractRegistrationId(Uri location)
+        private static string? ExtractRegistrationId(Uri? location)
         {
             if (location == null)
             {
@@ -144,9 +153,9 @@ namespace UwpClientApp
 
         private static (string endpoint, string keyName, string key) ParseConnectionString(string connectionString)
         {
-            string endpoint = null;
-            string keyName = null;
-            string key = null;
+            string? endpoint = null;
+            string? keyName = null;
+            string? key = null;
 
             foreach (string part in connectionString.Split(';', StringSplitOptions.RemoveEmptyEntries))
             {
@@ -211,14 +220,14 @@ namespace UwpClientApp
         /// <summary>
         /// Displays an informational message using a WinUI 3 <see cref="ContentDialog"/>.
         /// In the Windows App SDK a content dialog needs an XamlRoot, so the dialog is
-        /// shown against the app's main window content.
+        /// shown against the supplied host page.
         /// </summary>
-        private static async Task ShowMessageAsync(IntPtr windowHandle, string message)
+        private static async Task ShowMessageAsync(Page? hostPage, string message)
         {
-            XamlRoot xamlRoot = (App.Window?.Content as FrameworkElement)?.XamlRoot;
+            XamlRoot? xamlRoot = hostPage?.XamlRoot;
             if (xamlRoot == null)
             {
-                // The window content is not ready yet; nothing to attach the dialog to.
+                // The page is not ready yet; status is still reported via the callback/Debug output.
                 return;
             }
 
@@ -234,3 +243,4 @@ namespace UwpClientApp
         }
     }
 }
+

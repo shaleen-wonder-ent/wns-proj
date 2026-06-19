@@ -1,0 +1,4 @@
+{
+  "HubName": "wns-demo-hub",
+  "HubListenConnectionString": "Endpoint=sb://<your-namespace>.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=<your-listen-key>"
+}

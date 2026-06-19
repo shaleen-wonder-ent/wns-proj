@@ -1,5 +1,4 @@
 using Microsoft.UI.Xaml;
-using System;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -12,8 +11,8 @@ namespace UwpClientApp
     public partial class App : Application
     {
         /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
+        /// Initializes the singleton application object. This is the first line of authored
+        /// code executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
@@ -27,17 +26,15 @@ namespace UwpClientApp
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             // Create and activate the main window (replaces UWP Window.Current usage).
+            // Push notification registration is started by MainPage once it has loaded, so the
+            // page's XamlRoot is available for any ContentDialog shown by the flow.
             Window = new MainWindow();
             Window.Activate();
-            WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(Window);
-
-            // Register for push notifications on every launch so the channel URI
-            // (which can change) is always current in the hub.
-            _ = NotificationService.InitNotificationsAsync(WindowHandle);
         }
 
-        public static MainWindow Window { get; private set; }
-
-        public static IntPtr WindowHandle { get; private set; }
+        /// <summary>
+        /// The application's main window.
+        /// </summary>
+        public static Window? Window { get; private set; }
     }
 }

@@ -2,6 +2,7 @@
 **/appsettings.local.json
 **/secrets.json
 *.secrets
+**/notificationhub.local.json
 
 # .NET build output
 bin/

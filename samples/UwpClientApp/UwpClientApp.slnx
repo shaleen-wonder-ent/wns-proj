@@ -1,12 +1,11 @@
 <Solution>
   <Configurations>
-    <BuildType Name="Debug" />
-    <BuildType Name="Release" />
     <Platform Name="x86" />
     <Platform Name="x64" />
     <Platform Name="ARM64" />
   </Configurations>
   <Project Path="UwpClientApp.csproj" Id="b2c3d4e5-f6a7-8901-bcde-f23456789012">
+    <Platform Solution="Debug|x64" Project="x64" />
     <Deploy />
   </Project>
 </Solution>
