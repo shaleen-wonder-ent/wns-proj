@@ -37,7 +37,17 @@ WNS needs to know your app's identity. You get that from the Windows Store regis
    company accounts may still require verification.
 1. Go to the **Partner Center dashboard**: <https://partner.microsoft.com/dashboard>
    and sign in with your Microsoft account. Open the **Apps and games** workspace.
-2. Select **+ New product → App** (formerly "Create a new app").
+2. Select **+ New product**. In the dropdown you'll see several product types —
+   **choose `MSIX or PWA app`**. This is the right type for a UWP app and is what
+   provides the **Package SID / Identity** values WNS needs.
+
+   | Menu option | Use it for? |
+   | --- | --- |
+   | **MSIX or PWA app** | ✅ **This one** — UWP / MSIX‑packaged apps (our sample). |
+   | EXE or MSI app | Unpackaged Win32 installers — no Store identity for classic WNS. |
+   | GDK game | Xbox/PC games using the Game Development Kit. |
+   | MSIX or PWA game | Games distributed as MSIX/PWA. |
+
 3. Type a name and select **Reserve product name**. This creates a Store registration.
    See [Reserve your app's name](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msix/reserve-your-apps-name)
    for screenshots.
