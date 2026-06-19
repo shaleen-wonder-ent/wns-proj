@@ -28,10 +28,19 @@ There are **four** stages:
 
 WNS needs to know your app's identity. You get that from the Windows Store registration.
 
-1. Go to the [Partner Center / Windows Dev Center](https://partner.microsoft.com/dashboard/windows/first-run-experience)
-   and sign in with your Microsoft account.
-2. Select **Create a new app**.
+> ℹ️ **Updated links.** The old `partner.microsoft.com/dashboard/windows/first-run-experience`
+> URL is deprecated. Use the current entry points below.
+
+0. **(One‑time) Open a developer account** if you don't have one yet:
+   [Open a developer account](https://learn.microsoft.com/en-us/windows/apps/publish/partner-center/open-a-developer-account).
+   **Individual** registration is now **free** (the previous one‑time fee was removed);
+   company accounts may still require verification.
+1. Go to the **Partner Center dashboard**: <https://partner.microsoft.com/dashboard>
+   and sign in with your Microsoft account. Open the **Apps and games** workspace.
+2. Select **+ New product → App** (formerly "Create a new app").
 3. Type a name and select **Reserve product name**. This creates a Store registration.
+   See [Reserve your app's name](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msix/reserve-your-apps-name)
+   for screenshots.
 4. Expand **Product management → Product Identity**. **Write down** these four values:
    - **Package SID**
    - **Package/Identity/Name**
