@@ -106,7 +106,7 @@ You now have the two credentials the hub needs: **Package SID** and **Client sec
 
 ### Get the connection strings
 
-In the hub, open **Settings → Access Policies**. Copy:
+In the hub, open **Manage → Access Policies**. Copy:
 
 | Policy | Connection string | Used by |
 | --- | --- | --- |
