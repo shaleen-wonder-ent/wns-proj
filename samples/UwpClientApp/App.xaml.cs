@@ -26,9 +26,9 @@ namespace UwpClientApp
         //
         //  Use the LISTEN (not Full) connection string in the client app.
         // ─────────────────────────────────────────────────────────────────────────
-        private const string HubName = "<your hub name>";
+        private const string HubName = "wns-demo-hub";
         private const string HubListenConnectionString =
-            "<Your DefaultListenSharedAccessSignature connection string>";
+            "Endpoint=sb://wns-demo-ns-st.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=pT2hiGcE6+1UUhJ8YbtFEooy4HCoTb8dV/myCe5g9j0=";
 
         /// <summary>
         /// Initializes the singleton application object.
