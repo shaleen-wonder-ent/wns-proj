@@ -16,8 +16,10 @@ It is based on the official Microsoft tutorial:
 | [docs/01-concepts.md](docs/01-concepts.md) | Plain‑English explanation of Notification Hubs & WNS, and how they work together. |
 | [docs/02-architecture.md](docs/02-architecture.md) | Architecture diagrams (request flow + components). |
 | [docs/03-setup-guide.md](docs/03-setup-guide.md) | Step‑by‑step: create a Notification Hub, configure WNS, and wire it up. |
+| [docs/04-test-and-publish.md](docs/04-test-and-publish.md) | Test end‑to‑end, host the sender on Azure App Service, and publish the app to the Store. |
 | [samples/UwpClientApp](samples/UwpClientApp) | The Windows (UWP) client that **receives** notifications. |
-| [samples/BackendSender](samples/BackendSender) | A .NET console app that **sends** notifications via the hub. |
+| [samples/BackendSender](samples/BackendSender) | A .NET console app that **sends** a notification (simplest sender). |
+| [samples/BackendApi](samples/BackendApi) | An ASP.NET Core Web API that sends notifications over HTTP — deploy to **App Service**. |
 
 ---
 
@@ -50,6 +52,7 @@ and Windows.
 2. Follow [docs/03-setup-guide.md](docs/03-setup-guide.md) to create the Azure resources.
 3. Run the [client app](samples/UwpClientApp) to register a device.
 4. Run the [backend sender](samples/BackendSender) to push a notification.
+5. Test end‑to‑end and go to production with [docs/04-test-and-publish.md](docs/04-test-and-publish.md).
 
 ---
 
