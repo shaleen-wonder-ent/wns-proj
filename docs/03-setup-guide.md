@@ -57,10 +57,14 @@ WNS needs to know your app's identity. You get that from the Windows Store regis
    - **Package/Identity/Publisher**
    - **Package/Properties/PublisherDisplayName**
 5. Under **Product management → WNS/MPNS**, select **App Registration portal**.
-   (This opens the Azure AD app registration for your Store app.)
-6. Under **Essentials**, select **Client credentials: Add a certificate or secret**.
-7. On **Certificates & secrets → Client secrets**, select **New client secret**.
-   - ⚠️ **Copy the secret value immediately** — you can't see it again after leaving the page.
+   (This opens the Entra / Azure AD app registration for your Store app.)
+6. On that app registration's **Overview** page, find the **Essentials** panel (the box at
+   the top). On its right side select **Client credentials: Add a certificate or secret** —
+   or, equivalently, use the left menu **Manage → Certificates & secrets**.
+7. On **Certificates & secrets → Client secrets**, select **+ New client secret**, set a
+   description/expiry, then **Add**.
+   - ⚠️ **Copy the secret `Value` immediately** (not the Secret ID) — you can't see it
+     again after leaving the page. This is the **Security Key / Application Secret**.
 
 You now have the two credentials the hub needs: **Package SID** and **Client secret
 (Security Key)**.
