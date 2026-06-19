@@ -19,7 +19,7 @@ flowchart TB
 
     subgraph Azure["🔷 Azure Subscription"]
         subgraph NS["Notification Hubs Namespace"]
-            Hub["Notification Hub<br/>(WNS credentials configured)"]
+            Hub["Notification Hub<br/>(WNS credentials <br/> configured)"]
         end
     end
 
