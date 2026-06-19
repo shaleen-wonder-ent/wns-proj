@@ -94,9 +94,15 @@ You now have the two credentials the hub needs: **Package SID** and **Client sec
 
 1. In your hub, under **Settings → Windows (WNS)**.
 2. Enter:
-   - **Package SID** — from Stage 1 (format like `ms-app://s-1-15-2-...`).
-   - **Security Key** — the **client secret** from Stage 1.
-3. **Save**.
+   - **Package SID** — Partner Center displays it as `S-1-15-2-…`, **but you must add the
+     `ms-app://` prefix here.** So if Partner Center shows
+     `S-1-15-2-52517922-…`, enter `ms-app://S-1-15-2-52517922-…`.
+     Forgetting the prefix is the #1 cause of the `Invalid WNS credentials` error on Save.
+   - **Security Key** — the client secret **Value** from Stage 1 (the long string, **not**
+     the Secret ID GUID).
+3. **Save**. If it errors with `Invalid WNS credentials`, double‑check the `ms-app://`
+   prefix, confirm you used the secret **Value** (not Secret ID), and retry after a few
+   minutes (a new secret can take a short while to propagate).
 
 ### Get the connection strings
 
